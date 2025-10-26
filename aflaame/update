@@ -1,6 +1,6 @@
 {
   "enabled": true,
-  "force_update": false,
+  "force_update": true,
   "title": "@Android_AppsX",
   "message": "Join our Telegram Channel.",
   "buttons": [
