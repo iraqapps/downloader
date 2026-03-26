@@ -2,152 +2,178 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع الأفلام والمسلسلات</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>سينما | أفلام ومسلسلات</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans">
-    <header class="header bg-gray-800 p-4 text-center shadow-lg fixed w-full top-0 left-0 z-50 box-border">
-        <div class="search-bar flex justify-center items-center gap-2">
-           
-        <input type="text" id="searchInput" placeholder="ابحث عن فيلم أو مسلسل..." class="w-1/2 max-w-md p-2 rounded-lg bg-gray-700 text-gray-100 text-base outline-none shadow-inner placeholder-gray-400 focus:border-blue-500"
-                   aria-label="حقل البحث عن الأفلام والمسلسلات">
-            <button id="searchButton" class="bg-blue-600 text-white rounded-lg w-10 h-10 flex justify-center items-center cursor-pointer text-xl transition duration-300 hover:bg-blue-700" aria-label="زر البحث">
-                <span class="material-icons">search</span>
-            </button>
- 
-        </div>
-        <div id="filter-buttons-container" class="filter-buttons flex justify-center 
-items-center gap-3 mt-4 hidden">
-            <button id="filterMovies" class="filter-btn
-bg-gray-700 text-gray-300 px-4 py-2 rounded-lg text-sm transition duration-300 hover:bg-blue-600 hover:text-white">أفلام</button>
-            <button id="filterSeries" class="filter-btn bg-gray-700 text-gray-300 px-4 py-2 rounded-lg text-sm transition duration-300 hover:bg-blue-600 hover:text-white">مسلسلات</button>
-        </div>
-        
-        <div id="category-filter-buttons-container" class="filter-buttons flex justify-center items-center 
-gap-3 mt-4 hidden">
-            <button id="categoryFilterMovies" class="filter-btn bg-gray-700 text-gray-300 px-4 py-2 rounded-lg text-sm transition duration-300 hover:bg-blue-600 hover:text-white active-category-filter">أفلام</button>
-            <button id="categoryFilterSeries" class="filter-btn bg-gray-700 text-gray-300 px-4 py-2 rounded-lg text-sm transition duration-300 hover:bg-blue-600 hover:text-white">مسلسلات</button>
+<body>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="header-brand">
+                <span class="brand-icon material-icons-round">movie_filter</span>
+                <span class="brand-name">سينـمانا</span>
+            </div>
+            <div class="search-wrapper">
+                <span class="material-icons-round search-icon-inner">search</span>
+                <input type="text" id="searchInput" placeholder="ابحث عن فيلم أو مسلسل..." 
+                       class="search-field" aria-label="حقل البحث">
+                <button id="searchButton" class="search-btn" aria-label="زر البحث">
+                    <span class="material-icons-round">arrow_back_ios</span>
+                </button>
+            </div>
+
+
         </div>
     </header>
 
-    <main id="main-content" class="container pt-24 pb-20 max-w-screen-xl mx-auto px-4">
-        <h1 class="page-title text-3xl text-gray-100 mb-5 text-right pr-2
-border-r-4 border-blue-400">اكتشف الأفلام والمسلسلات</h1>
+    <!-- Filter Bars (in main content) -->
+    <div id="filter-buttons-container" class="filter-bar hidden">
+        <button id="filterMovies" class="filter-tab active-tab">
+            <span class="material-icons-round">movie</span> أفلام
+        </button>
+        <button id="filterSeries" class="filter-tab">
+            <span class="material-icons-round">live_tv</span> مسلسلات
+        </button>
+    </div>
 
-        <div 
-id="movie-series-list">
-            <p class="text-gray-400 text-center mt-10 text-lg flex flex-col items-center justify-center">
-                <span class="material-icons animate-spin text-4xl text-blue-500 mb-2">sync</span>
-                جاري تحميل المحتوى الأولي...
-            </p>
-        </div>
+    <div id="category-filter-buttons-container" class="filter-bar hidden">
+        <button id="categoryFilterMovies" class="filter-tab active-tab">
+            <span class="material-icons-round">movie</span> أفلام
+        </button>
+        <button id="categoryFilterSeries" class="filter-tab">
+            <span class="material-icons-round">live_tv</span> مسلسلات
+        </button>
+    </div>
 
-        <div id="categories-section" class="categories-section bg-gray-900 animate-fade-in hidden">
-       
-            <h2 class="text-4xl text-blue-400 mb-5 text-center">الأقسام</h2>
-            <div id="categories-list" class="movie-series-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 pb-4 justify-start">
-                 <p class="text-gray-400 text-center w-full text-lg">جاري تحميل الأقسام...</p>
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+
+        <!-- Home: Movie/Series Groups -->
+        <div id="movie-series-list">
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>جاري تحميل المحتوى...</p>
             </div>
         </div>
 
-        <div id="category-content-section" class="category-content-section bg-gray-900 animate-fade-in hidden">
-            <button 
-class="back-button bg-transparent border-none text-blue-400 text-lg cursor-pointer mb-5 flex items-center gap-1 transition duration-300 hover:text-blue-500" onclick="handleGlobalBackButtonClick()">
-                <span class="material-icons transform rotate-180">arrow_right_alt</span> رجوع
+        <!-- Categories Grid -->
+        <div id="categories-section" class="section-panel hidden">
+            <h2 class="section-heading">
+                <span class="material-icons-round">grid_view</span> الأقسام
+            </h2>
+            <div id="categories-list" class="categories-grid">
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <p>جاري تحميل الأقسام...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Content -->
+        <div id="category-content-section" class="section-panel hidden">
+            <button class="back-btn" onclick="handleGlobalBackButtonClick()">
+                <span class="material-icons-round">arrow_forward_ios</span> رجوع
             </button>
-            <h2 id="category-content-title" class="text-3xl text-gray-100 mb-5 text-right pr-2 border-r-4 border-blue-400"></h2>
-            <div id="category-content-list" class="movie-series-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 pb-4 justify-start">
-             
-            <p class="text-gray-400 text-center w-full text-lg">جاري تحميل محتوى القسم...</p>
+            <h2 id="category-content-title" class="section-heading with-border"></h2>
+            <div id="category-content-list" class="content-grid">
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <p>جاري تحميل المحتوى...</p>
+                </div>
             </div>
         </div>
-        
-        <div id="details-section" class="details-section bg-gray-800 p-6 rounded-lg shadow-xl animate-fade-in hidden">
-            <button class="back-button bg-transparent
-border-none text-blue-400 text-lg cursor-pointer mb-5 flex items-center gap-1 transition duration-300 hover:text-blue-500" onclick="handleGlobalBackButtonClick()">
-              <span class="material-icons transform rotate-180">arrow_right_alt</span> رجوع
-   
+
+        <!-- Details Section -->
+        <div id="details-section" class="section-panel hidden">
+            <button class="back-btn" onclick="handleGlobalBackButtonClick()">
+                <span class="material-icons-round">arrow_forward_ios</span> رجوع
             </button>
-            <h2 id="details-title" class="text-4xl text-blue-400 mb-5 text-center"></h2>
-            <div class="details-poster-container text-center mb-5">
-                <img id="details-poster" 
-src="" alt="بوستر الفيلم 
-أو المسلسل" class="max-w-xs
-h-auto rounded-lg shadow-md mx-auto">
+
+            <div class="details-hero">
+                <div class="details-poster-wrap">
+                    <img id="details-poster" src="" alt="بوستر" class="details-poster">
+                    <div class="poster-glow"></div>
+                </div>
+                <div class="details-info">
+                    <h2 id="details-title" class="details-title"></h2>
+                    <div class="details-meta">
+                        <span id="details-year" class="meta-badge"></span>
+                        <span id="details-duration" class="meta-badge"></span>
+                        <span id="details-stars" class="meta-badge rating-badge"></span>
+                    </div>
+                    <p id="details-categories" class="details-cats"></p>
+                    <p id="details-description" class="details-desc"></p>
+                    <div class="details-actions">
+                        <button id="watchDownloadBtn" class="action-btn primary-btn hidden">
+                            <span class="material-icons-round">download</span> جلب معلومات التحميل
+                        </button>
+                        <button id="favoriteButton" class="action-btn secondary-btn">
+                            <span class="material-icons-round">star_border</span> إضافة للمفضلة
+                        </button>
+                    </div>
+                </div>
             </div>
-            <p id="details-description" class="text-lg leading-relaxed mb-3
-text-gray-300 text-justify"></p>
-    
-            <p id="details-year" class="text-base mb-1 text-gray-300"></p>
-            <p id="details-stars" class="text-base mb-1 text-gray-300"></p>
-            <p id="details-duration" class="text-base mb-1 text-gray-300"></p>
-            <p id="details-categories" class="text-base 
-mb-4 text-gray-300"></p>
+
             <div id="seasons-list" class="seasons-list hidden">
-       
-            <h3 class="text-2xl text-blue-400 mt-6 mb-3 border-r-3 border-blue-400 pr-2">المواسم والحلقات:</h3>
+                <h3 class="seasons-title">
+                    <span class="material-icons-round">video_library</span> المواسم والحلقات
+                </h3>
             </div>
-            <button id="watchDownloadBtn" class="watch-download-button block w-max mx-auto mt-6 py-3 px-6
-bg-blue-600 text-white border-none rounded-lg text-xl cursor-pointer transition duration-300 hover:bg-blue-700 transform hover:-translate-y-0.5 hidden">جلب معلومات التحميل</button>
-            <button id="favoriteButton" class="block w-max mx-auto mt-4 py-3 px-6 bg-gray-600 text-white border-none rounded-lg text-xl
-cursor-pointer transition duration-300 hover:bg-gray-700 transform hover:-translate-y-0.5 flex items-center gap-2">
-      
-            <span class="material-icons text-base">star_border</span> إضافة إلى المفضلة
-            </button>
         </div>
 
-        <div id="quality-options-section"
-class="quality-options-section bg-gray-800 p-6 rounded-lg shadow-xl animate-fade-in hidden">
-            <button class="back-button bg-transparent border-none text-blue-400 text-lg 
-cursor-pointer mb-5 flex items-center gap-1 transition duration-300 hover:text-blue-500" onclick="handleGlobalBackButtonClick()">
-               <span class="material-icons transform rotate-180">arrow_right_alt</span> رجوع
-     
+        <!-- Quality Options -->
+        <div id="quality-options-section" class="section-panel hidden">
+            <button class="back-btn" onclick="handleGlobalBackButtonClick()">
+                <span class="material-icons-round">arrow_forward_ios</span> رجوع
             </button>
-            <h2 id="quality-title" class="text-4xl text-blue-400 mb-5 text-center">اختيار الجودة</h2>
-            <div id="quality-list" class="quality-list flex flex-col gap-4"></div>
+            <h2 id="quality-title" class="section-heading">
+                <span class="material-icons-round">high_quality</span> اختيار الجودة
+            </h2>
+            <div id="quality-list" class="quality-list"></div>
         </div>
 
-        <div id="favorites-section" class="favorites-section 
-bg-gray-800 p-6 rounded-lg shadow-xl animate-fade-in hidden">
-            <button class="back-button
-bg-transparent border-none text-blue-400 text-lg cursor-pointer mb-5 flex items-center gap-1 transition
-duration-300 hover:text-blue-500" onclick="handleGlobalBackButtonClick()">
-          
-            <span class="material-icons transform rotate-180">arrow_right_alt</span> رجوع
+        <!-- Favorites Section -->
+        <div id="favorites-section" class="section-panel hidden">
+            <button class="back-btn" onclick="handleGlobalBackButtonClick()">
+                <span class="material-icons-round">arrow_forward_ios</span> رجوع
             </button>
-            <h2 class="text-4xl text-blue-400 mb-5 text-center">المفضلة</h2>
-            <div id="favorites-list" class="movie-series-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 pb-4 
-justify-start">
-                <p class="text-gray-400 text-center w-full text-lg">لا توجد
-عناصر في قائمتك المفضلة حتى الآن.</p>
+            <h2 class="section-heading">
+                <span class="material-icons-round">favorite</span> المفضلة
+            </h2>
+            <div id="favorites-list" class="content-grid">
+                <div class="empty-state">
+                    <span class="material-icons-round empty-icon">favorite_border</span>
+                    <p>لا توجد عناصر في المفضلة حتى الآن</p>
+                </div>
             </div>
-  
         </div>
+
     </main>
 
-    <nav class="bottom-nav bg-gray-800 flex justify-around p-3 fixed bottom-0 w-full shadow-lg z-50">
-        <a href="#" class="nav-item active text-gray-400 no-underline flex flex-col items-center text-xs transition duration-300 hover:text-blue-600" id="home-nav" aria-label="الرئيسية">
-            <span class="material-icons text-2xl mb-1">home</span> الرئيسية
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" id="home-nav" aria-label="الرئيسية">
+            <span class="material-icons-round nav-icon">home</span>
+            <span class="nav-label">الرئيسية</span>
         </a>
-        <a href="#" class="nav-item text-gray-400 no-underline flex
-flex-col items-center text-xs transition
-duration-300 hover:text-blue-600"
-id="search-nav" aria-label="بحث">
-            
-            <span class="material-icons text-2xl mb-1">search</span> بحث
+        <a href="#" class="nav-item" id="search-nav" aria-label="بحث">
+            <span class="material-icons-round nav-icon">search</span>
+            <span class="nav-label">بحث</span>
         </a>
-        <a href="#" class="nav-item text-gray-400 no-underline flex flex-col items-center text-xs transition duration-300 hover:text-blue-600" id="categories-nav" aria-label="الأقسام">
-            <span class="material-icons text-2xl mb-1">category</span> الأقسام
+        <a href="#" class="nav-item" id="categories-nav" aria-label="الأقسام">
+            <span class="material-icons-round nav-icon">grid_view</span>
+            <span class="nav-label">الأقسام</span>
         </a>
-        <a href="#" class="nav-item text-gray-400 no-underline flex flex-col items-center text-xs transition duration-300 hover:text-blue-600" id="favorites-nav" aria-label="المفضلة">
-            <span class="material-icons text-2xl mb-1">favorite</span> المفضلة
-      
+        <a href="#" class="nav-item" id="favorites-nav" aria-label="المفضلة">
+            <span class="material-icons-round nav-icon">favorite</span>
+            <span class="nav-label">المفضلة</span>
         </a>
     </nav>
 
