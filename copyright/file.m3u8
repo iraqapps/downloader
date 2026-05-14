@@ -1,19 +1,17 @@
 #EXTM3U
 #EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:1000
 
-# --- دقة 360p (جودة منخفضة) ---
-#EXT-X-STREAM-INF:BANDWIDTH=800000,RESOLUTION=640x360,NAME="360p"
+#EXTINF:-1, Quality 360p
 https://iraqapps.github.io/downloader/copyright/1.mp4
 
-# --- دقة 480p (جودة متوسطة) ---
-#EXT-X-STREAM-INF:BANDWIDTH=1400000,RESOLUTION=854x480,NAME="480p"
+#EXTINF:-1, Quality 480p
 https://iraqapps.github.io/downloader/copyright/2.mp4
 
-# --- دقة 720p (جودة عالية HD) ---
-#EXT-X-STREAM-INF:BANDWIDTH=2800000,RESOLUTION=1280x720,NAME="720p"
+#EXTINF:-1, Quality 720p
 https://iraqapps.github.io/downloader/copyright/3.mp4
 
-# --- دقة 1080p (جودة كاملة FHD) ---
-#EXT-X-STREAM-INF:BANDWIDTH=5000000,RESOLUTION=1920x1080,NAME="1080p"
+#EXTINF:-1, Quality 1080p
 https://iraqapps.github.io/downloader/copyright/4.mp4
 
+#EXT-X-ENDLIST
